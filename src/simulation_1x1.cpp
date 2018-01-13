@@ -23,12 +23,28 @@
 #include <math.h>
 #include <iostream>
 
+#define ini_x 1.7
+#define ini_y 1.3
+#define ABSOLUTE_POSITION -1
+
+#define _GOAL_A_BEGIN_X -0.73750
+#define _GOAL_A_END_X   -0.86250
+#define _GOAL_A_BEGIN_Y  0.21250
+#define _GOAL_A_END_Y   -0.21250
+#define _GOAL_B_BEGIN_X  0.73750
+#define _GOAL_B_END_X    0.86250
+#define _GOAL_B_BEGIN_Y  0.21250
+#define _GOAL_B_END_Y   -0.21250
+
+
 extern "C" {
 #include "extApi.h"
 	/*  #include "extApiCustom.h" if you wanna use custom remote API functions! */
 }
 
-simxInt BolaHandle; 
+
+
+simxInt BolaHandle;
 
 simxInt robot1_Handle;
 simxInt leftMotor1_Handle;
@@ -61,19 +77,14 @@ simxInt obstaculo_handle;
 simxInt obstaculo_handle_2;
 simxInt obstaculo_handle_3;
 
-#define ini_x 1.7
-#define ini_y 1.3
-#define ABSOLUTE_POSITION -1
 
 using namespace std;
 
-inline double to_deg(double radians)
-{
+inline double to_deg(double radians) {
 	return radians * (180.0 / M_PI);
 }
 
-double to180range(double angle)
-{
+double to180range(double angle) {
 	angle = fmod(angle, 2 * M_PI);
 	if (angle < -M_PI)
 	{
@@ -86,9 +97,7 @@ double to180range(double angle)
 	return angle;
 }
 
-double to_positive_angle(double angle)
-{
-
+double to_positive_angle(double angle) {
 	angle = fmod(angle, 2 * M_PI);
 	while (angle < 0)
 	{
@@ -97,8 +106,7 @@ double to_positive_angle(double angle)
 	return angle;
 }
 
-double smallestAngleDiff(double target, double source)
-{
+double smallestAngleDiff(double target, double source) {
 	double a;
 	a = to_positive_angle(target) - to_positive_angle(source);
 
@@ -113,7 +121,8 @@ double smallestAngleDiff(double target, double source)
 	return a;
 }
 
-void conexao(){
+void conexao() {
+
 	printf("Conexao efetuada\n");
 	simxGetObjectHandle(clientID, "RobotFrame", &robot1_Handle, simx_opmode_oneshot_wait);
 	simxGetObjectHandle(clientID, "LeftMotor_1", &leftMotor1_Handle, simx_opmode_oneshot_wait);
@@ -133,7 +142,7 @@ void conexao(){
 	// printf("GraphOdometry: %d\n", graphOdometryHandle);
 }
 
-void pega_pos(){
+void pega_pos() {
 
 	simxInt ret = simxGetObjectPosition(clientID, robot1_Handle, -1, pos_robot1, simx_opmode_oneshot_wait);
 	if (ret > 0) {
