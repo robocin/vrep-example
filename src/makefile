@@ -11,7 +11,7 @@ all:
 	@rm -f bin/*.*
 	@rm -f *.o 
 	@rm -f ../remoteApi/*.o 
-	g++ $(CFLAGS) -c simulacao.cpp -o simulacao.o
+	g++ $(CFLAGS) -c simulation_1x1.cpp -o simulacao.o
 	gcc $(CFLAGS) -c ../remoteApi/extApi.c -o ../remoteApi/extApi.o
 	gcc $(CFLAGS) -c ../remoteApi/extApiPlatform.c -o ../remoteApi/extApiPlatform.o
 	@mkdir -p bin

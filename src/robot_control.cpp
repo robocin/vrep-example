@@ -41,6 +41,9 @@ simxFloat objetivo[3];
 simxFloat lwprev;
 simxFloat rwprev;
 
+simxInt leftMotorHandle_1;
+simxInt rightMotorHandle_1;
+
 int clientID;
 
 simxFloat fieldBall[3];
@@ -51,6 +54,8 @@ simxInt obstaculo_handle_3;
 
 #define ini_x 1.7
 #define ini_y 1.3
+
+using namespace std;
 
 inline double to_deg(double radians)
 {
@@ -106,6 +111,9 @@ void conexao(){
     simxGetObjectHandle(clientID, "Bola", &BolaHandle, simx_opmode_oneshot_wait);
     simxGetObjectHandle(clientID, "Obstaculo", &obstaculo_handle, simx_opmode_oneshot_wait);
 
+    simxGetObjectHandle(clientID, "LeftMotor0", &leftMotorHandle_1, simx_opmode_oneshot_wait);
+    simxGetObjectHandle(clientID, "RightMotor0", &rightMotorHandle_1, simx_opmode_oneshot_wait);
+
     // printf("RobotFrame: %d\n", ddRobotHandle);
     // printf("LeftMotor: %d\n", leftMotorHandle);
     // printf("RightMotor: %d\n", rightMotorHandle);
@@ -148,6 +156,8 @@ int main(int argc, char* argv[]) {
     objetivo[1] = 0;
     objetivo[2] = 0;
 
+    srand(time(NULL));
+
     std::string ipAddr = "127.0.0.1";//10.0.2.2";
     int portNb = 19997;//1999;
 
@@ -179,8 +189,16 @@ int main(int argc, char* argv[]) {
             
             
             //Envia velocidade para os motores do robo
-            simxSetJointTargetVelocity(clientID, leftMotorHandle, 20, simx_opmode_oneshot); // Send speed to left motor
-            simxSetJointTargetVelocity(clientID, rightMotorHandle, 0, simx_opmode_oneshot); // Send speed to right motor
+            // simxSetJointTargetVelocity(clientID, leftMotorHandle, 20, simx_opmode_oneshot); // Send speed to left motor
+            // simxSetJointTargetVelocity(clientID, rightMotorHandle, 0, simx_opmode_oneshot); // Send speed to right motor
+            
+            // Robot 1
+            simxSetJointTargetVelocity(clientID, leftMotorHandle, rand()%20, simx_opmode_oneshot); // Send speed to left motor
+            simxSetJointTargetVelocity(clientID, rightMotorHandle, rand()%20, simx_opmode_oneshot); // Send speed to right motor
+
+            // Robot 2
+            simxSetJointTargetVelocity(clientID, leftMotorHandle_1, rand()%20, simx_opmode_oneshot); // Send speed to left motor
+            simxSetJointTargetVelocity(clientID, rightMotorHandle_1, rand()%20, simx_opmode_oneshot); // Send speed to right motor
 
             extApi_sleepMs(2);
         }
