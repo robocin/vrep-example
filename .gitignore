@@ -2,3 +2,4 @@
 .vscode
 .DS_Store
 ./src/bin/*
+./build/*
