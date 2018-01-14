@@ -29,10 +29,21 @@ remote_api:
 	@gcc $(CFLAGS) -c ../remoteApi/extApi.c -o ../remoteApi/extApi.o
 	@gcc $(CFLAGS) -c ../remoteApi/extApiPlatform.c -o ../remoteApi/extApiPlatform.o
 
+# clean every directory
+clean:
+	@rm -f bin/*.*
+	@rm -f *.o 
+	@rm -f ../remoteApi/*.o 
+
 # build the simulation group resources
 simulation:
 	@g++ $(CFLAGS) -c libs/simulation_group.cpp -o bin/lib_group.o -I../remoteApi/
 
+# build the agent resources
+agent:
+	@g++ $(CFLAGS) -c libs/robot_agent.cpp -o bin/lib_agent.o -I../remoteApi/
+
+# build a test for the simulation class aplication
 simtest:
 	@echo "\nCleaning everything...\n"
 	@make clean
@@ -48,8 +59,19 @@ simtest:
 	@echo "\nRunning test...\n"
 	./bin/simtest
 
-# clean every directory
-clean:
-	@rm -f bin/*.*
-	@rm -f *.o 
-	@rm -f ../remoteApi/*.o 
+# build a test for the agent
+agenttest:
+	@echo "\nCleaning everything...\n"
+	@make clean
+	@echo "\nBuilding remote API\n"
+	@make remote_api
+	@echo "\nBuilding Classes\n"
+	@make simulation
+	@make agent
+	@echo "\nBuilding test objects\n"
+	@g++ $(CFLAGS) -c tests/test_robotagent.cpp -o bin/robot_agent.o -I../remoteApi/
+	@echo "\nBuilding the test executable\n"
+	@g++ ${EXTERN_API} bin/*.o -o bin/robot_agent -lpthread -I../remoteApi/
+	@echo "\nBuild Finished!\n"
+	@echo "\nRunning test...\n"
+	./bin/robot_agent
