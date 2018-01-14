@@ -13,6 +13,9 @@ extern "C" {
 
 using namespace std;
 
+
+simulationGroup::simulationGroup() {}
+
 simulationGroup::simulationGroup(vector<string> teamA_names, vector<string> teamB_names, string ball_name) {
 	this->connect("127.0.0.1", 19997, 2000);
 	this->set_teamA(teamA_names);
