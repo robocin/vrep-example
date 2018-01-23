@@ -12,12 +12,3 @@ The used classes are found in src/libs and the tests in src/tests.
 7. Feel free to build your own software
 
 In this moment, for easy development use the src/tests/test_robotagent.cpp as a reference and insert your own agent software for the game.
-
-Reference:
-> # V-REP Example  
-Example of communication with VREP using C++ and a [IEEE Very Small Size Soccer](http://> www.cbrobotica.org/?page_id=81&lang=pt) scenario.  
->  
-> ## Usage  
-> 1. Run [V-REP](http://www.coppeliarobotics.com/).  
-> 2. Open `Cenario.ttt` on V-REP.  
-> 3. Go to `src` folder and run `make`.  
