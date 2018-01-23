@@ -3,10 +3,10 @@ This repository contains a simulator of the game of soccer Very Small Size in a 
 The used classes are found in src/libs and the tests in src/tests.
 
 ## Running the tests:
-1. Open VREP software
+1. Open [V-REP](http://www.coppeliarobotics.com/downloads.html) software 
 2. Open the file 1x1.ttt
-3. Go to the folder build/
-4. Execute the command "cmake .."
+3. Go to the folder vrep-example/
+4. Execute the command "[cmake](https://cmake.org/install/) CMakeLists.txt"
 5. Execute the command make
 6. Execute ./test_agent or ./test_sim
 7. Feel free to build your own software
